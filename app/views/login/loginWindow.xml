@@ -1,0 +1,9 @@
+<Alloy>
+	<Window id="window">
+		<View class="login-container" layout="vertical">
+			<TextField id="username" class="login-field" />
+			<TextField id="password" class="login-field" />
+			<Button id="login" class="login-button" />
+		</View>
+	</Window>
+</Alloy>

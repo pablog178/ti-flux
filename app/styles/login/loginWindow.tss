@@ -1,0 +1,31 @@
+'#window': {
+
+},
+'#username': {
+	hintText: 'Username'
+},
+'#password': {
+	hintText: 'Password'
+},
+'#login': {
+
+},
+
+'.login-container': {
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE
+},
+'.login-field': {
+	top: 10,
+	bottom: 10,
+	left: 10,
+	right: 10,
+	height: 40
+},
+'.login-button': {
+	left: 10,
+	right: 10,
+	title: 'Login',
+	backgroundColor: '#341294',
+	color: '#FFF'
+}
