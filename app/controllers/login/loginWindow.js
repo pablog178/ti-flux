@@ -29,4 +29,20 @@ function init () {
 // | Event Handlers declaration.
 // +-------------------
 
+/**
+ * @method handleLoginFieldChange
+ * @private
+ * Handler for the change event in the login and password textfields
+ * @param {Object} _evt Change event
+ * @return {void}
+ */
+function handleLoginFieldChange(_evt) {
+	doLog && console.log(LOG_TAG, '- handleLoginFieldChange');
+	
+	var loginEnabled = ($.username.value && $.password.value);
+}
+
 init();
+
+$.username.addEventListener('change', handleLoginFieldChange);
+$.password.addEventListener('change', handleLoginFieldChange);
