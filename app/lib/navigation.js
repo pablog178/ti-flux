@@ -1,5 +1,5 @@
 /**
- * Manager for openning and closing screens within the app
+ * Container for openning and closing screens within the app
  * @class Navigation
  * @singleton
  */
@@ -11,7 +11,7 @@ var Navigation = (function () {
 	// +-------------------
 	// | Private members.
 	// +-------------------
-	var managers = {};
+	var containers = {};
 	var navigationWindows = {};
 
 	/**
@@ -91,7 +91,7 @@ var Navigation = (function () {
 
 		var route = routes[_routeName];
 		var options = _options || {};
-		var manager = null;
+		var container = null;
 		var navigation = null;
 		var modal = false;
 		var closeOthers = options.closeOthers || false;
@@ -100,39 +100,39 @@ var Navigation = (function () {
 			throw Error('route not defined: ' + _routeName);
 		}
 
-		if (managers[_routeName]) {
+		if (containers[_routeName]) {
 			doLog && console.warn(LOG_TAG, '- Window already opened, open() will skip: ' + _routeName);
 			return false;
 		}
 
-		manager = require('managers/' + route)(options);
-		navigation = manager.navigation || null;
-		modal = manager.modal || false;
+		container = require('containers/' + route)(options);
+		navigation = container.navigation || null;
+		modal = container.modal || false;
 
-		if (!manager) {
-			throw Error('Lib does not exist: lib/managers/' + route);
+		if (!container) {
+			throw Error('Lib does not exist: lib/containers/' + route);
 		}
 
-		if (!manager.window) {
-			throw Error('Manager does not define a top-level window: ' + _routeName);
+		if (!container.window) {
+			throw Error('Container does not define a top-level window: ' + _routeName);
 		}
 
-		managers[_routeName] = manager;
+		containers[_routeName] = container;
 
 		if (navigation) {
-			openWindowInNavWindow(manager.window, navigation);
+			openWindowInNavWindow(container.window, navigation);
 		} else {
-			manager.window.open({
+			container.window.open({
 				modal: modal
 			});
 		}
 
-		manager.onOpen && manager.onOpen(options);
+		container.onOpen && container.onOpen(options);
 
 		if (closeOthers) {
-			_.each(managers, function (_manager, _managerName) {
-				if (_managerName !== _routeName) {
-					close(_managerName);
+			_.each(containers, function (_container, _containerName) {
+				if (_containerName !== _routeName) {
+					close(_containerName);
 				}
 			});
 		}
@@ -150,31 +150,31 @@ var Navigation = (function () {
 
 		var route = routes[_routeName];
 		var options = _options || {};
-		var manager = managers[_routeName];
+		var container = containers[_routeName];
 		var navigation = null;
 
 		if (!route) {
 			throw Error('route not defined in routes: ' + _routeName);
 		}
 
-		if (!manager) {
-			doLog && console.log(LOG_TAG, '- close - manager for route not found: ' + _routeName);
+		if (!container) {
+			doLog && console.log(LOG_TAG, '- close - container for route not found: ' + _routeName);
 			return false;
 		}
 
-		if (!manager.window) {
-			throw Error('manager does not define a top-level window: ' + _routeName);
+		if (!container.window) {
+			throw Error('container does not define a top-level window: ' + _routeName);
 		}
 
-		navigation = manager.navigation || null;
+		navigation = container.navigation || null;
 
 		if (navigation) {
-			closeWindowInNavWindow(manager.window, navigation);
+			closeWindowInNavWindow(container.window, navigation);
 		} else {
-			manager.window.close();
+			container.window.close();
 		}
 
-		manager.onClose && manager.onClose(options);
+		container.onClose && container.onClose(options);
 	}
 
 	return {
