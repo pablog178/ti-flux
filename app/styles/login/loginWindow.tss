@@ -26,6 +26,13 @@
 	left: 10,
 	right: 10,
 	title: 'Login',
-	backgroundColor: '#341294',
 	color: '#FFF'
-}
+},
+'.login-button-enabled': {
+	touchEnabled: true,
+	backgroundColor: '#341294',
+},
+'.login-button-disabled': {
+	touchEnabled: false,
+	backgroundColor: '#ACACAC'
+},

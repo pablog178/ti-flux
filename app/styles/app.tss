@@ -21,5 +21,6 @@ overrode the settings with other TSS, XML, or JS settings:
 	color: '#000'
 },
 'TextField[platform=android]': {
-	height: Ti.UI.SIZE
+	height: Ti.UI.SIZE,
+	color: '#000'
 }

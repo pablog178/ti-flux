@@ -7,6 +7,8 @@ var args = arguments[0] || {};
 
 const LOG_TAG = '\x1b[31m' + '[controllers/login/loginWindow]' + '\x1b[39;49m ';
 
+var state = {};
+
 /**
  * @method init
  * @private
@@ -21,9 +23,75 @@ function init () {
 // | Public members.
 // +-------------------
 
+/**
+ * @method render
+ * Updates all the UI components based on this controller's state
+ * @return {void}
+ */
+$.render = function (_state) {
+	doLog && console.log(LOG_TAG, '- render');
+
+	_.each(_state, function(_value, _key) {
+		switch(_key) {
+			case 'username':
+			case 'password':
+				if ($[_key].value !== _value) {
+					$[_key].value = _value;
+				}
+				$.resetClass($.login, getLoginButtonClasses(state.username, state.password));
+				break;
+		}
+	});
+};
+
+/**
+ * @method setState
+ * Updates the internat state of the controller, calling render if something changes
+ * @param {Object} _state New properties to update in the state
+ * @return {void}
+ */
+$.setState = function (_state) {
+	doLog && console.log(LOG_TAG, '- setState');
+	
+	var oldState = JSON.parse(JSON.stringify(state));
+	var diffState = {};
+
+	_.extend(state, _state);
+
+	_.each(state, function(_value, _key) {
+		if (!_.isEqual(state[_key], oldState[_key])) {
+			diffState[_key] = _value;
+		}
+	});
+
+
+	$.render(diffState);
+};
+
 // +-------------------
 // | Private members.
 // +-------------------
+
+/**
+ * @method getLoginButtonClasses
+ * @private
+ * Updates the loginButton enabled/disabled status
+ * @return {void}
+ */
+function getLoginButtonClasses(_username, _password) {
+	doLog && console.log(LOG_TAG, '- getLoginButtonClasses');
+	
+	var isLoginEnabled = !!(_username && _password);
+	var loginButtonClasses = ['login-button'];
+
+	if (isLoginEnabled) {
+		loginButtonClasses.push('login-button-enabled');
+	} else {
+		loginButtonClasses.push('login-button-disabled');
+	}
+	
+	return loginButtonClasses;
+}
 
 // +-------------------
 // | Event Handlers declaration.
@@ -38,8 +106,13 @@ function init () {
  */
 function handleLoginFieldChange(_evt) {
 	doLog && console.log(LOG_TAG, '- handleLoginFieldChange');
-	
-	var loginEnabled = ($.username.value && $.password.value);
+
+	var id = _evt.source.id;
+	var state = {};
+
+	state[id] = _evt.source.value;
+
+	$.setState(state);
 }
 
 init();
