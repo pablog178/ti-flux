@@ -6,8 +6,8 @@
 
 const LOG_TAG = '\x1b[35m' + '[application]' + '\x1b[39;49m ';
 
-const navigation = require('navigation');
-const session = require('session');
+const navigation = require('utils/navigation');
+const session = require('utils/session');
 const states = require('states');
 
 var Application = (function () {

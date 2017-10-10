@@ -11,7 +11,7 @@ var Navigation = (function () {
 	// +-------------------
 	// | Private members.
 	// +-------------------
-	var containers = {};
+	var controllers = {};
 	var navigationWindows = {};
 
 	/**
@@ -91,48 +91,55 @@ var Navigation = (function () {
 
 		var route = routes[_routeName];
 		var options = _options || {};
-		var container = null;
-		var navigation = null;
+		var controller = null;
+		var navWindow = null;
+		var path = null;
 		var modal = false;
-		var closeOthers = options.closeOthers || false;
+		var closeAllWindows = route.closeAllWindows || false;
 
 		if (!route) {
 			throw Error('route not defined: ' + _routeName);
 		}
 
-		if (containers[_routeName]) {
+		if (controllers[_routeName]) {
 			doLog && console.warn(LOG_TAG, '- Window already opened, open() will skip: ' + _routeName);
 			return false;
 		}
 
-		container = require('containers/' + route)(options);
-		navigation = container.navigation || null;
-		modal = container.modal || false;
+		path = route.path || null;
 
-		if (!container) {
-			throw Error('Lib does not exist: lib/containers/' + route);
+		if (!path) {
+			throw Error('route.path not defined for : ' + _routeName);
 		}
 
-		if (!container.window) {
-			throw Error('Container does not define a top-level window: ' + _routeName);
+		controller = Alloy.createController(route.path, options);
+		navWindow = route.navWindow || null;
+		modal = route.modal || false;
+
+		if (!controller) {
+			throw Error('Lib does not exist: lib/controllers/' + route);
 		}
 
-		containers[_routeName] = container;
+		if (!controller.window) {
+			throw Error('controller does not define a top-level window: ' + _routeName);
+		}
 
-		if (navigation) {
-			openWindowInNavWindow(container.window, navigation);
+		controllers[_routeName] = controller;
+
+		if (navWindow) {
+			openWindowInNavWindow(controller.window, navWindow);
 		} else {
-			container.window.open({
+			controller.window.open({
 				modal: modal
 			});
 		}
 
-		container.onOpen && container.onOpen(options);
+		route.onOpen && route.onOpen(options);
 
-		if (closeOthers) {
-			_.each(containers, function (_container, _containerName) {
-				if (_containerName !== _routeName) {
-					close(_containerName);
+		if (closeAllWindows) {
+			_.each(controllers, function (_controller, _controllerName) {
+				if (_controllerName !== _routeName) {
+					close(_controllerName);
 				}
 			});
 		}
@@ -150,31 +157,31 @@ var Navigation = (function () {
 
 		var route = routes[_routeName];
 		var options = _options || {};
-		var container = containers[_routeName];
-		var navigation = null;
+		var controller = controllers[_routeName];
+		var navWindow = null;
 
 		if (!route) {
 			throw Error('route not defined in routes: ' + _routeName);
 		}
 
-		if (!container) {
-			doLog && console.log(LOG_TAG, '- close - container for route not found: ' + _routeName);
+		if (!controller) {
+			doLog && console.log(LOG_TAG, '- close - controller for route not found: ' + _routeName);
 			return false;
 		}
 
-		if (!container.window) {
-			throw Error('container does not define a top-level window: ' + _routeName);
+		if (!controller.window) {
+			throw Error('controller does not define a top-level window: ' + _routeName);
 		}
 
-		navigation = container.navigation || null;
+		navWindow = route.navWindow || null;
 
-		if (navigation) {
-			closeWindowInNavWindow(container.window, navigation);
+		if (navWindow) {
+			closeWindowInNavWindow(controller.window, navWindow);
 		} else {
-			container.window.close();
+			controller.window.close();
 		}
 
-		container.onClose && container.onClose(options);
+		route.onClose && route.onClose(options);
 	}
 
 	return {

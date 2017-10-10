@@ -1,1 +1,1 @@
-require('application').start();
+require('utils/application').start();

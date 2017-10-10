@@ -8,12 +8,10 @@ const LOG_TAG = '\x1b[35m' + '[states]' + '\x1b[39;49m ';
 
 var States = {
 	'stable': {
-		open: 'main',
-		closeOthers: true
+		open: 'mainWindow'
 	},
 	'unstable': {
-		open: 'login',
-		closeOthers: true
+		open: 'loginWindow'
 	}
 };
 
