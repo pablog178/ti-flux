@@ -38,20 +38,20 @@ var Session = (function () {
 	}
 
 	/**
-	 * @method isSessionSaved
+	 * @method isActive
 	 * Validates if there is a session locally saved to create
 	 * @return {Boolean}
 	 */
-	function isSessionSaved() {
-		doLog && console.log(LOG_TAG, '- isSessionSaved');
+	function isActive() {
+		doLog && console.log(LOG_TAG, '- isActive');
 
-		return true;
+		return false;
 	}
 
 	return {
 		logout: logout,
 		createSession: createSession,
-		isSessionSaved: isSessionSaved
+		isActive: isActive
 	};
 })();
 
