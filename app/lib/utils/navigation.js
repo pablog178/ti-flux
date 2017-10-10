@@ -116,10 +116,6 @@ var Navigation = (function () {
 		navWindow = route.navWindow || null;
 		modal = route.modal || false;
 
-		if (!controller) {
-			throw Error('Lib does not exist: lib/controllers/' + route);
-		}
-
 		if (!controller.window) {
 			throw Error('controller does not define a top-level window: ' + _routeName);
 		}
