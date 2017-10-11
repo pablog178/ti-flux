@@ -82,9 +82,21 @@ var StateMachine = function (_states) {
 		}
 	}
 
+	/**
+	 * @method getCurrentState
+	 * Returns the name of the current state in the machine
+	 * @return {String} state name
+	 */
+	function getCurrentState() {
+		doLog && console.log(LOG_TAG, '- getCurrentState');
+		
+		return currentState;
+	}
+
 	return {
 		start: start,
-		transitionToNextState: transitionToNextState
+		transitionToNextState: transitionToNextState,
+		getCurrentState: getCurrentState
 	};
 };
 

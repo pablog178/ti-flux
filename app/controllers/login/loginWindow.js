@@ -7,6 +7,8 @@ var args = arguments[0] || {};
 
 const LOG_TAG = '\x1b[31m' + '[controllers/login/loginWindow]' + '\x1b[39;49m ';
 
+var Session = require('/stores/session');
+
 var LoginWindow = function() {
 	var state = {};
 
@@ -116,10 +118,24 @@ var LoginWindow = function() {
 		setState(state);
 	}
 
+	/**
+	 * @method handleLoginClick
+	 * @private
+	 * Handles the click event in the login button
+	 * @param {Object} _evt Click event
+	 * @return {void}
+	 */
+	function handleLoginClick(_evt) {
+		doLog && console.log(LOG_TAG, '- handleLoginClick');
+		
+		Session.login($.username.value, $.password.value);
+	}
+
 	init();
 
 	$.username.addEventListener('change', handleLoginFieldChange);
 	$.password.addEventListener('change', handleLoginFieldChange);
+	$.login.addEventListener('click', handleLoginClick);
 
 	return {
 		render: render,

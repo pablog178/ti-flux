@@ -7,7 +7,7 @@
 const LOG_TAG = '\x1b[35m' + '[utils/application]' + '\x1b[39;49m ';
 
 const Navigation = require('/utils/navigation');
-const Session = require('/utils/session');
+const Session = require('/stores/session');
 const StateMachine = require('/utils/stateMachine');
 
 var Application = (function () {
@@ -16,10 +16,12 @@ var Application = (function () {
 	// +-------------------
 	var states = {
 		'start': {
-			onState: function(_options, _onComplete) {
+			onState: function(_options) {
 				doLog && console.log(LOG_TAG, '- onState - start');
 
-				_onComplete();
+				Session.addListener(handleSessionChange);
+
+				stateMachine.transitionToNextState();
 			},
 			transition: function() {
 				doLog && console.log(LOG_TAG, '- transition from - start');
@@ -31,7 +33,7 @@ var Application = (function () {
 			}
 		},
 		'login': {
-			onState: function(_options, _onComplete) {
+			onState: function(_options) {
 				doLog && console.log(LOG_TAG, '- onState - login');
 
 				Session.logout();
@@ -46,7 +48,7 @@ var Application = (function () {
 			}
 		},
 		'stable': {
-			onState: function(_options, _onComplete) {
+			onState: function(_options) {
 				doLog && console.log(LOG_TAG, '- onState - stable');
 
 				Navigation.open('mainWindow');
@@ -60,7 +62,36 @@ var Application = (function () {
 		}
 	};
 
-	stateMachine = new StateMachine(states);
+	/**
+	 * @method init
+	 * @private
+	 * Initialices the application library
+	 * @return {void}
+	 */
+	function init() {
+		doLog && console.log(LOG_TAG, '- init');
+		
+		stateMachine = new StateMachine(states);
+	}
+
+	/**
+	 * @method handleSessionChange
+	 * @private
+	 * Handles all the changes in the sessionStore, updating the state machine if needed
+	 * @param {Object} _payloads param_description
+	 * @return {void}
+	 */
+	function handleSessionChange(_session) {
+		doLog && console.log(LOG_TAG, '- handleSessionChange');
+		
+		stateMachine.transitionToNextState();
+	}
+
+	// +-------------------
+	// | Public members.
+	// +-------------------
+
+	init();
 
 	return {
 		start: stateMachine.start
