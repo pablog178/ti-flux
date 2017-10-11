@@ -54,7 +54,7 @@ var Store = function (_args) {
 	 * @return {void}
 	 */
 	function handleAction(_payload) {
-		doLog && console.log(LOG_TAG, '- handleAction');
+		doLog && console.debug(LOG_TAG, '- handleAction');
 
 		state = _.reduce([_payload], reducer, state);
 
@@ -71,7 +71,7 @@ var Store = function (_args) {
 	 * @return {Object}
 	 */
 	function getState() {
-		doLog && console.log(LOG_TAG, '- getState');
+		doLog && console.debug(LOG_TAG, '- getState');
 
 		return state;
 	}
@@ -83,7 +83,7 @@ var Store = function (_args) {
 	 * @return {String} Token to use when removing a listener
 	 */
 	function addListener(_handler) {
-		doLog && console.log(LOG_TAG, '- addListener');
+		doLog && console.debug(LOG_TAG, '- addListener');
 
 		return observer.addListener(changeEvt, _handler);
 	}
@@ -95,7 +95,7 @@ var Store = function (_args) {
 	 * @return {void}
 	 */
 	function removeListener(_handlerToken) {
-		doLog && console.log(LOG_TAG, '- removeListener');
+		doLog && console.debug(LOG_TAG, '- removeListener');
 
 		observer.removeListener(changeEvt, _handlerToken);
 	}

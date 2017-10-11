@@ -5,7 +5,7 @@
  */
 const LOG_TAG = '\x1b[35m' + '[navigation]' + '\x1b[39;49m ';
 
-var routes = require('routes');
+var routes = require('/routes');
 
 var Navigation = (function () {
 	// +-------------------
@@ -23,7 +23,7 @@ var Navigation = (function () {
 	 * @return {void}
 	 */
 	function openWindowInNavWindow(_window, _navName) {
-		doLog && console.log(LOG_TAG, '- openWindowInNavWindow');
+		doLog && console.debug(LOG_TAG, '- openWindowInNavWindow');
 
 		if (OS_ANDROID) {
 			_window.open();
@@ -55,7 +55,7 @@ var Navigation = (function () {
 	 * @return {void}
 	 */
 	function closeWindowInNavWindow(_window, _navName) {
-		doLog && console.log(LOG_TAG, '- closeWindowInNavWindow');
+		doLog && console.debug(LOG_TAG, '- closeWindowInNavWindow');
 
 		if (OS_ANDROID) {
 			_window.close();
@@ -87,7 +87,7 @@ var Navigation = (function () {
 	 * @return {void}
 	 */
 	function open(_routeName, _options) {
-		doLog && console.log(LOG_TAG, '- open: ' + _routeName);
+		doLog && console.debug(LOG_TAG, '- open: ' + _routeName);
 
 		var route = routes[_routeName];
 		var options = _options || {};
@@ -149,7 +149,7 @@ var Navigation = (function () {
 	 * @return {void}
 	 */
 	function close(_routeName, _options) {
-		doLog && console.log(LOG_TAG, '- close: ' + _routeName);
+		doLog && console.debug(LOG_TAG, '- close: ' + _routeName);
 
 		var route = routes[_routeName];
 		var options = _options || {};
@@ -161,7 +161,7 @@ var Navigation = (function () {
 		}
 
 		if (!controller) {
-			doLog && console.log(LOG_TAG, '- close - controller for route not found: ' + _routeName);
+			doLog && console.debug(LOG_TAG, '- close - controller for route not found: ' + _routeName);
 			return false;
 		}
 

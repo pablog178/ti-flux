@@ -17,14 +17,14 @@ var Application = (function () {
 	var states = {
 		'start': {
 			onState: function (_options) {
-				doLog && console.log(LOG_TAG, '- onState - start');
+				doLog && console.debug(LOG_TAG, '- onState - start');
 
 				Session.addListener(handleSessionChange);
 
 				stateMachine.transitionToNextState();
 			},
 			transition: function () {
-				doLog && console.log(LOG_TAG, '- transition from - start');
+				doLog && console.debug(LOG_TAG, '- transition from - start');
 				if (Session.isActive()) {
 					return 'stable';
 				}
@@ -34,14 +34,14 @@ var Application = (function () {
 		},
 		'login': {
 			onState: function (_options) {
-				doLog && console.log(LOG_TAG, '- onState - login');
+				doLog && console.debug(LOG_TAG, '- onState - login');
 
 				Session.logout();
 
 				Navigation.open('loginWindow');
 			},
 			transition: function () {
-				doLog && console.log(LOG_TAG, '- transition from - login');
+				doLog && console.debug(LOG_TAG, '- transition from - login');
 				if (Session.isActive()) {
 					return 'stable';
 				}
@@ -49,12 +49,12 @@ var Application = (function () {
 		},
 		'stable': {
 			onState: function (_options) {
-				doLog && console.log(LOG_TAG, '- onState - stable');
+				doLog && console.debug(LOG_TAG, '- onState - stable');
 
 				Navigation.open('mainWindow');
 			},
 			transition: function () {
-				doLog && console.log(LOG_TAG, '- transition from  - stable');
+				doLog && console.debug(LOG_TAG, '- transition from  - stable');
 				if (!Session.isActive()) {
 					return 'login';
 				}
@@ -69,7 +69,7 @@ var Application = (function () {
 	 * @return {void}
 	 */
 	function init() {
-		doLog && console.log(LOG_TAG, '- init');
+		doLog && console.debug(LOG_TAG, '- init');
 
 		stateMachine = new StateMachine(states);
 	}
@@ -82,7 +82,7 @@ var Application = (function () {
 	 * @return {void}
 	 */
 	function handleSessionChange(_session) {
-		doLog && console.log(LOG_TAG, '- handleSessionChange');
+		doLog && console.debug(LOG_TAG, '- handleSessionChange');
 
 		stateMachine.transitionToNextState();
 	}

@@ -29,7 +29,7 @@ var StateMachine = function (_states) {
 	 * @return {void}
 	 */
 	function gotoState(_stateName, _options) {
-		doLog && console.log(LOG_TAG, '- gotoState');
+		doLog && console.debug(LOG_TAG, '- gotoState');
 
 		var state = states[_stateName];
 
@@ -55,7 +55,7 @@ var StateMachine = function (_states) {
 	 * @return {void}
 	 */
 	function start(_options) {
-		doLog && console.log(LOG_TAG, '- start');
+		doLog && console.debug(LOG_TAG, '- start');
 
 		gotoState('start', _options);
 	}
@@ -67,7 +67,7 @@ var StateMachine = function (_states) {
 	 * @return {void}
 	 */
 	function transitionToNextState(_options) {
-		doLog && console.log(LOG_TAG, '- transitionToNextState');
+		doLog && console.debug(LOG_TAG, '- transitionToNextState');
 
 		var state = states[currentState];
 
@@ -88,7 +88,7 @@ var StateMachine = function (_states) {
 	 * @return {String} state name
 	 */
 	function getCurrentState() {
-		doLog && console.log(LOG_TAG, '- getCurrentState');
+		doLog && console.debug(LOG_TAG, '- getCurrentState');
 
 		return currentState;
 	}

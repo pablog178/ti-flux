@@ -54,7 +54,7 @@ function Observer() {
 	 * @return {void}
 	 */
 	function addListener(_eventName, _handler) {
-		doLog && console.log(LOG_TAG, '- addListener');
+		doLog && console.debug(LOG_TAG, '- addListener');
 
 		var eventHandlers = functionHandlers[_eventName];
 		var token = null;
@@ -82,7 +82,7 @@ function Observer() {
 	 * @return {void}
 	 */
 	function removeListener(_eventName, _token) {
-		doLog && console.log(LOG_TAG, '- removeListener');
+		doLog && console.debug(LOG_TAG, '- removeListener');
 
 		var eventHandlers = functionHandlers[_eventName];
 
@@ -91,12 +91,12 @@ function Observer() {
 		}
 
 		if (!eventHandlers) {
-			doLog && console.log(LOG_TAG, '- removeListener - no eventHandlers for event: ' + _eventName);
+			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandlers for event: ' + _eventName);
 			return false;
 		}
 
 		if (!eventHandlers[_token]) {
-			doLog && console.log(LOG_TAG, '- removeListener - no eventHandler for token: ' + _token);
+			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandler for token: ' + _token);
 			return false;
 		}
 
@@ -111,7 +111,7 @@ function Observer() {
 	 * @return {void}
 	 */
 	function fireEvent(_eventName, _data) {
-		doLog && console.log(LOG_TAG, '- fireEvent');
+		doLog && console.debug(LOG_TAG, '- fireEvent');
 
 		var data = _data || {};
 
