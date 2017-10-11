@@ -43,6 +43,9 @@ var LoginWindow = function () {
 				}
 				$.resetClass($.login, getLoginButtonClasses(state.username, state.password));
 				break;
+			case 'loading':
+				$.loadingContainer.visible = _value;
+				break;
 			}
 		});
 	}
@@ -84,12 +87,12 @@ var LoginWindow = function () {
 		doLog && console.log(LOG_TAG, '- getLoginButtonClasses');
 
 		var isLoginEnabled = !!(_username && _password);
-		var loginButtonClasses = ['login-button'];
+		var loginButtonClasses = ['loginButton'];
 
 		if (isLoginEnabled) {
-			loginButtonClasses.push('login-button-enabled');
+			loginButtonClasses.push('loginButtonEnabled');
 		} else {
-			loginButtonClasses.push('login-button-disabled');
+			loginButtonClasses.push('loginButtonDisabled');
 		}
 
 		return loginButtonClasses;
@@ -127,7 +130,15 @@ var LoginWindow = function () {
 	function handleLoginClick(_evt) {
 		doLog && console.log(LOG_TAG, '- handleLoginClick');
 
-		Session.login($.username.value, $.password.value);
+		setState({
+			loading: true
+		});
+
+		Session.login($.username.value, $.password.value, function (_error) {
+			setState({
+				loading: false
+			});
+		});
 	}
 
 	init();

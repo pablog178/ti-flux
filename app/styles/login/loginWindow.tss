@@ -10,29 +10,43 @@
 '#login': {
 
 },
+'#loadingContainer': {
+	left: 20,
+	right: 20,
+	height: 350,
+	backgroundColor: Alloy.Globals.colors.black,
+	visible: false
+},
 
-'.login-container': {
+'.loginContainer': {
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE
 },
-'.login-field': {
+'.loginField': {
 	top: 10,
 	bottom: 10,
 	left: 10,
 	right: 10,
 	height: 40
 },
-'.login-button': {
+'.loginButton': {
 	left: 10,
 	right: 10,
 	title: 'Login',
 	color: '#FFF'
 },
-'.login-button-enabled': {
+'.loginButtonEnabled': {
 	touchEnabled: true,
 	backgroundColor: '#341294',
 },
-'.login-button-disabled': {
+'.loginButtonDisabled': {
 	touchEnabled: false,
 	backgroundColor: '#ACACAC'
 },
+'.loadingIndicator': {
+	visible: true
+},
+'.loadingLabel': {
+	text: 'Loading',
+	color: Alloy.Globals.colors.white
+}

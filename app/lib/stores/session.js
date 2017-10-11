@@ -83,13 +83,17 @@ var Session = (function () {
 	 * @param {String} _password Password to login with
 	 * @return {void}
 	 */
-	function login(_username, _password) {
+	function login(_username, _password, _callback) {
 		doLog && console.log(LOG_TAG, '- login');
 
-		Dispatcher.dispatch({
-			type: 'SESSION_LOGIN',
-			username: _username
-		});
+		_.delay(function() {
+			Dispatcher.dispatch({
+				type: 'SESSION_LOGIN',
+				username: _username
+			});
+
+			_callback && _callback();
+		}, 5000);
 	}
 
 	/**

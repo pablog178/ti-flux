@@ -1,9 +1,13 @@
 <Alloy>
 	<Window id="window">
-		<View class="login-container" layout="vertical">
-			<TextField id="username" class="login-field" />
-			<TextField id="password" class="login-field" />
-			<Button id="login" class="login-button" />
+		<View class="loginContainer" layout="vertical">
+			<TextField id="username" class="loginField" />
+			<TextField id="password" class="loginField" />
+			<Button id="login" class="loginButton" />
+		</View>
+		<View id="loadingContainer" layout="vertical">
+			<ActivityIndicator class="loadingIndicator" />
+			<Label class="loadingLabel" />
 		</View>
 	</Window>
 </Alloy>
