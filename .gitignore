@@ -12,3 +12,4 @@ tmp
 Thumbs.db
 ti-boilerplate.sublime-workspace
 plugins/ti.alloy
+node_modules

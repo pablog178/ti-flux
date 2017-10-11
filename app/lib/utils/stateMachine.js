@@ -68,7 +68,7 @@ var StateMachine = function (_states) {
 	 */
 	function transitionToNextState(_options) {
 		doLog && console.log(LOG_TAG, '- transitionToNextState');
-		
+
 		var state = states[currentState];
 
 		if (!state.transition) {
@@ -89,7 +89,7 @@ var StateMachine = function (_states) {
 	 */
 	function getCurrentState() {
 		doLog && console.log(LOG_TAG, '- getCurrentState');
-		
+
 		return currentState;
 	}
 

@@ -24,12 +24,12 @@ var Store = function (_args) {
 	/**
 	 * @property {Object} dispatcher=args.dispatcher Dispatcher to suscribe this store against
 	 */
-	var dispatcher=args.dispatcher;
+	var dispatcher = args.dispatcher;
 
 	/**
 	 * @property {Function} reducer=args.reducer Reducer function to update the state in each action
 	 */
-	var reducer=args.reducer;
+	var reducer = args.reducer;
 
 	/**
 	 * @property {Utils.observer} observer Embedded observer object for making this store observable
@@ -39,7 +39,7 @@ var Store = function (_args) {
 	/**
 	 * @property {String} changeEvt='change' Name of the change event
 	 */
-	var changeEvt='change';
+	var changeEvt = 'change';
 
 	/**
 	 * @property {String} dispatchToken Token obtained from registering this store agains the dispatcher
@@ -55,8 +55,8 @@ var Store = function (_args) {
 	 */
 	function handleAction(_payload) {
 		doLog && console.log(LOG_TAG, '- handleAction');
-		
-		state = _.reduce([ _payload ], reducer, state);
+
+		state = _.reduce([_payload], reducer, state);
 
 		observer.fireEvent(changeEvt, state);
 	}
@@ -72,7 +72,7 @@ var Store = function (_args) {
 	 */
 	function getState() {
 		doLog && console.log(LOG_TAG, '- getState');
-		
+
 		return state;
 	}
 
@@ -84,7 +84,7 @@ var Store = function (_args) {
 	 */
 	function addListener(_handler) {
 		doLog && console.log(LOG_TAG, '- addListener');
-		
+
 		return observer.addListener(changeEvt, _handler);
 	}
 
@@ -96,7 +96,7 @@ var Store = function (_args) {
 	 */
 	function removeListener(_handlerToken) {
 		doLog && console.log(LOG_TAG, '- removeListener');
-		
+
 		observer.removeListener(changeEvt, _handlerToken);
 	}
 

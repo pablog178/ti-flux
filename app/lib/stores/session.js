@@ -27,7 +27,7 @@ var Session = (function () {
 	 */
 	function initialState() {
 		doLog && console.log(LOG_TAG, '- initialState');
-		
+
 		return {
 			active: false
 		};
@@ -42,19 +42,19 @@ var Session = (function () {
 	 */
 	function reduce(_state, _action) {
 		doLog && console.log(LOG_TAG, '- reduce');
-		
-		switch(_action.type) {
-			case 'SESSION_LOGOUT':
-				return {
-					active: false
-				};
-			case 'SESSION_LOGIN':
-				return {
-					active: true,
-					username: _action.username
-				};
-			default:
-				return _state;
+
+		switch (_action.type) {
+		case 'SESSION_LOGOUT':
+			return {
+				active: false
+			};
+		case 'SESSION_LOGIN':
+			return {
+				active: true,
+				username: _action.username
+			};
+		default:
+			return _state;
 
 		}
 	}
@@ -70,7 +70,7 @@ var Session = (function () {
 	 */
 	function isActive() {
 		doLog && console.log(LOG_TAG, '- isActive');
-		
+
 		var state = store.getState();
 
 		return !!state.active;
@@ -85,7 +85,7 @@ var Session = (function () {
 	 */
 	function login(_username, _password) {
 		doLog && console.log(LOG_TAG, '- login');
-		
+
 		Dispatcher.dispatch({
 			type: 'SESSION_LOGIN',
 			username: _username
@@ -99,7 +99,7 @@ var Session = (function () {
 	 */
 	function logout() {
 		doLog && console.log(LOG_TAG, '- logout');
-		
+
 		Dispatcher.dispatch({
 			type: 'SESSION_LOGOUT'
 		});

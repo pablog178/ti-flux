@@ -16,14 +16,14 @@ var Application = (function () {
 	// +-------------------
 	var states = {
 		'start': {
-			onState: function(_options) {
+			onState: function (_options) {
 				doLog && console.log(LOG_TAG, '- onState - start');
 
 				Session.addListener(handleSessionChange);
 
 				stateMachine.transitionToNextState();
 			},
-			transition: function() {
+			transition: function () {
 				doLog && console.log(LOG_TAG, '- transition from - start');
 				if (Session.isActive()) {
 					return 'stable';
@@ -33,14 +33,14 @@ var Application = (function () {
 			}
 		},
 		'login': {
-			onState: function(_options) {
+			onState: function (_options) {
 				doLog && console.log(LOG_TAG, '- onState - login');
 
 				Session.logout();
-				
+
 				Navigation.open('loginWindow');
 			},
-			transition: function() {
+			transition: function () {
 				doLog && console.log(LOG_TAG, '- transition from - login');
 				if (Session.isActive()) {
 					return 'stable';
@@ -48,12 +48,12 @@ var Application = (function () {
 			}
 		},
 		'stable': {
-			onState: function(_options) {
+			onState: function (_options) {
 				doLog && console.log(LOG_TAG, '- onState - stable');
 
 				Navigation.open('mainWindow');
 			},
-			transition: function() {
+			transition: function () {
 				doLog && console.log(LOG_TAG, '- transition from  - stable');
 				if (!Session.isActive()) {
 					return 'login';
@@ -70,7 +70,7 @@ var Application = (function () {
 	 */
 	function init() {
 		doLog && console.log(LOG_TAG, '- init');
-		
+
 		stateMachine = new StateMachine(states);
 	}
 
@@ -83,7 +83,7 @@ var Application = (function () {
 	 */
 	function handleSessionChange(_session) {
 		doLog && console.log(LOG_TAG, '- handleSessionChange');
-		
+
 		stateMachine.transitionToNextState();
 	}
 
@@ -95,7 +95,7 @@ var Application = (function () {
 
 	return {
 		start: stateMachine.start
-	}
+	};
 })();
 
 module.exports = Application;

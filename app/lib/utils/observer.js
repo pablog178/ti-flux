@@ -44,7 +44,7 @@ function Observer() {
 	/**
 	 * @property {Number} handlersCount=0 Counter of handlers to send as token
 	 */
-	var handlersCount=0;
+	var handlersCount = 0;
 
 	/**
 	 * @method addListener
@@ -67,7 +67,7 @@ function Observer() {
 
 		token = '' + handlersCount;
 
-		eventHandlers[token] = _handler
+		eventHandlers[token] = _handler;
 
 		handlersCount += 1;
 
@@ -99,7 +99,7 @@ function Observer() {
 			doLog && console.log(LOG_TAG, '- removeListener - no eventHandler for token: ' + _token);
 			return false;
 		}
-		
+
 		delete eventHandlers[_token];
 	}
 

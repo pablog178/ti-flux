@@ -39,7 +39,7 @@ var Dispatcher = (function () {
 		actionHandlers[token] = _handler;
 
 		actionHandlersCount++;
-		
+
 		return token;
 	}
 
@@ -51,7 +51,7 @@ var Dispatcher = (function () {
 	 */
 	function unregister(_token) {
 		doLog && console.log(LOG_TAG, '- unregister');
-		
+
 		delete actionHandlers[_token];
 	}
 
@@ -63,16 +63,16 @@ var Dispatcher = (function () {
 	 */
 	function dispatch(_payload) {
 		doLog && console.log(LOG_TAG, '- dispatch');
-		
-		_.each(actionHandlers, function(_handler) {
-			_handler(_payload)
+
+		_.each(actionHandlers, function (_handler) {
+			_handler(_payload);
 		});
-	}	
+	}
 
 	return {
-register: register,
-unregister: unregister,
-dispatch: dispatch
+		register: register,
+		unregister: unregister,
+		dispatch: dispatch
 	};
 })();
 

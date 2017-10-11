@@ -9,7 +9,7 @@ const LOG_TAG = '\x1b[31m' + '[controllers/login/loginWindow]' + '\x1b[39;49m ';
 
 var Session = require('/stores/session');
 
-var LoginWindow = function() {
+var LoginWindow = function () {
 	var state = {};
 
 	/**
@@ -18,7 +18,7 @@ var LoginWindow = function() {
 	 * Initializes the controller
 	 * @return {void}
 	 */
-	function init () {
+	function init() {
 		doLog && console.log(LOG_TAG, '- init');
 	}
 
@@ -31,18 +31,18 @@ var LoginWindow = function() {
 	 * Updates all the UI components based on this controller's state
 	 * @return {void}
 	 */
-	function render (_state) {
+	function render(_state) {
 		doLog && console.log(LOG_TAG, '- render');
 
-		_.each(_state, function(_value, _key) {
-			switch(_key) {
-				case 'username':
-				case 'password':
-					if ($[_key].value !== _value) {
-						$[_key].value = _value;
-					}
-					$.resetClass($.login, getLoginButtonClasses(state.username, state.password));
-					break;
+		_.each(_state, function (_value, _key) {
+			switch (_key) {
+			case 'username':
+			case 'password':
+				if ($[_key].value !== _value) {
+					$[_key].value = _value;
+				}
+				$.resetClass($.login, getLoginButtonClasses(state.username, state.password));
+				break;
 			}
 		});
 	}
@@ -53,20 +53,19 @@ var LoginWindow = function() {
 	 * @param {Object} _state New properties to update in the state
 	 * @return {void}
 	 */
-	function setState (_state) {
+	function setState(_state) {
 		doLog && console.log(LOG_TAG, '- setState');
-		
+
 		var oldState = JSON.parse(JSON.stringify(state));
 		var diffState = {};
 
 		_.extend(state, _state);
 
-		_.each(state, function(_value, _key) {
+		_.each(state, function (_value, _key) {
 			if (!_.isEqual(state[_key], oldState[_key])) {
 				diffState[_key] = _value;
 			}
 		});
-
 
 		render(diffState);
 	}
@@ -83,7 +82,7 @@ var LoginWindow = function() {
 	 */
 	function getLoginButtonClasses(_username, _password) {
 		doLog && console.log(LOG_TAG, '- getLoginButtonClasses');
-		
+
 		var isLoginEnabled = !!(_username && _password);
 		var loginButtonClasses = ['login-button'];
 
@@ -92,7 +91,7 @@ var LoginWindow = function() {
 		} else {
 			loginButtonClasses.push('login-button-disabled');
 		}
-		
+
 		return loginButtonClasses;
 	}
 
@@ -127,7 +126,7 @@ var LoginWindow = function() {
 	 */
 	function handleLoginClick(_evt) {
 		doLog && console.log(LOG_TAG, '- handleLoginClick');
-		
+
 		Session.login($.username.value, $.password.value);
 	}
 
@@ -140,7 +139,7 @@ var LoginWindow = function() {
 	return {
 		render: render,
 		setState: setState
-	}
+	};
 };
 
 _.extend($, new LoginWindow());

@@ -1,5 +1,5 @@
 var doLog = true;
 
-(function() {
+(function () {
 
 })();
