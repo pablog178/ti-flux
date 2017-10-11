@@ -46,24 +46,25 @@ var Session = (function () {
 		switch (_action.type) {
 		case 'SESSION_LOGOUT':
 			return {
-				active: false
+				status: 'logout',
+				username: null,
+				errorMessage: null
 			};
 		case 'SESSION_LOGIN':
 			return {
-				active: true,
-				loading: false,
-				username: _action.username
+				status: 'login',
+				username: _action.username,
+				errorMessage: null
 			};
 		case 'SESSION_ERROR':
 			return {
-				active: false,
-				loading: false,
+				status: 'logout',
 				errorMessage: _action.errorMessage
 			};
 		case 'SESSION_TRY_LOGIN':
 			return {
-				active: false,
-				loading: true
+				status: 'loading',
+				errorMessage: null
 			};
 		default:
 			return _state;
@@ -85,7 +86,7 @@ var Session = (function () {
 
 		var state = store.getState();
 
-		return !!state.active;
+		return state.status === 'login';
 	}
 
 	/**
@@ -114,7 +115,7 @@ var Session = (function () {
 					username: _username
 				});
 			}
-		}, 5000);
+		}, 1000);
 	}
 
 	/**
