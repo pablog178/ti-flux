@@ -57,6 +57,8 @@ var Store = function (_args) {
 		doLog && console.log(LOG_TAG, '- handleAction');
 		
 		state = _.reduce([ _payload ], reducer, state);
+
+		observer.fireEvent(changeEvt, state);
 	}
 
 	// +-------------------
