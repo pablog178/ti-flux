@@ -51,7 +51,19 @@ var Session = (function () {
 		case 'SESSION_LOGIN':
 			return {
 				active: true,
+				loading: false,
 				username: _action.username
+			};
+		case 'SESSION_ERROR':
+			return {
+				active: false,
+				loading: false,
+				errorMessage: _action.errorMessage
+			};
+		case 'SESSION_TRY_LOGIN':
+			return {
+				active: false,
+				loading: true
 			};
 		default:
 			return _state;
@@ -83,16 +95,25 @@ var Session = (function () {
 	 * @param {String} _password Password to login with
 	 * @return {void}
 	 */
-	function login(_username, _password, _callback) {
+	function login(_username, _password) {
 		doLog && console.log(LOG_TAG, '- login');
 
-		_.delay(function() {
-			Dispatcher.dispatch({
-				type: 'SESSION_LOGIN',
-				username: _username
-			});
+		Dispatcher.dispatch({
+			type: 'SESSION_TRY_LOGIN'
+		});
 
-			_callback && _callback();
+		_.delay(function () {
+			if (true) {
+				Dispatcher.dispatch({
+					type: 'SESSION_ERROR',
+					errorMessage: 'An error has occured, try again'
+				});
+			} else {
+				Dispatcher.dispatch({
+					type: 'SESSION_LOGIN',
+					username: _username
+				});
+			}
 		}, 5000);
 	}
 

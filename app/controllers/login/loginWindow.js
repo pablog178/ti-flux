@@ -8,9 +8,16 @@ var args = arguments[0] || {};
 const LOG_TAG = '\x1b[31m' + '[controllers/login/loginWindow]' + '\x1b[39;49m ';
 
 var Session = require('/stores/session');
+var Container = require('/utils/container');
 
 var LoginWindow = function () {
-	var state = {};
+	/**
+	 * @property {Utils.container} container Container
+	 */
+	var container = new Container({
+		stores: [Session],
+		render: render
+	});
 
 	/**
 	 * @method init
@@ -38,39 +45,22 @@ var LoginWindow = function () {
 			switch (_key) {
 			case 'username':
 			case 'password':
+				var state = container.getState();
+
 				if ($[_key].value !== _value) {
 					$[_key].value = _value;
 				}
+
 				$.resetClass($.login, getLoginButtonClasses(state.username, state.password));
 				break;
 			case 'loading':
 				$.loadingContainer.visible = _value;
 				break;
+			case 'errorMessage':
+				alert(_value);
+				break;
 			}
 		});
-	}
-
-	/**
-	 * @method setState
-	 * Updates the internat state of the controller, calling render if something changes
-	 * @param {Object} _state New properties to update in the state
-	 * @return {void}
-	 */
-	function setState(_state) {
-		doLog && console.log(LOG_TAG, '- setState');
-
-		var oldState = JSON.parse(JSON.stringify(state));
-		var diffState = {};
-
-		_.extend(state, _state);
-
-		_.each(state, function (_value, _key) {
-			if (!_.isEqual(state[_key], oldState[_key])) {
-				diffState[_key] = _value;
-			}
-		});
-
-		render(diffState);
 	}
 
 	// +-------------------
@@ -117,7 +107,7 @@ var LoginWindow = function () {
 
 		state[id] = _evt.source.value;
 
-		setState(state);
+		container.setState(state);
 	}
 
 	/**
@@ -130,15 +120,7 @@ var LoginWindow = function () {
 	function handleLoginClick(_evt) {
 		doLog && console.log(LOG_TAG, '- handleLoginClick');
 
-		setState({
-			loading: true
-		});
-
-		Session.login($.username.value, $.password.value, function (_error) {
-			setState({
-				loading: false
-			});
-		});
+		Session.login($.username.value, $.password.value);
 	}
 
 	init();
@@ -147,10 +129,9 @@ var LoginWindow = function () {
 	$.password.addEventListener('change', handleLoginFieldChange);
 	$.login.addEventListener('click', handleLoginClick);
 
-	return {
-		render: render,
-		setState: setState
-	};
+	return _.extend({}, container, {
+
+	});
 };
 
 _.extend($, new LoginWindow());
