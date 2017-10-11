@@ -56,9 +56,14 @@ var Store = function (_args) {
 	function handleAction(_payload) {
 		doLog && console.debug(LOG_TAG, '- handleAction');
 
+		var previousState = JSON.parse(JSON.stringify(state));
+
 		state = _.reduce([_payload], reducer, state);
 
-		observer.fireEvent(changeEvt, state);
+		if (!_.isEqual(previousState, state)) {
+			observer.fireEvent(changeEvt, state);
+		}
+
 	}
 
 	// +-------------------
