@@ -37,12 +37,8 @@ var StateMachine = function (_states) {
 			throw Error('state not defined: ' + _stateName);
 		}
 
-		if (!state.onState) {
-			throw Error('state.onState() function not defined: ' + _stateName);
-		}
-
 		currentState = _stateName;
-		state.onState(_options, transitionToNextState);
+		state.onState && state.onState(_options, transitionToNextState);
 	}
 
 	// +-------------------

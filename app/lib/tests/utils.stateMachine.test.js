@@ -39,22 +39,22 @@ describe('/utils/stateMachine', function () {
 	describe('#transitionToNextState()', function () {
 		it('should go to state1 according to start.transition()', function () {
 			testMachine.transitionToNextState();
-			testMachine.getCurrentState().should.equals('state1');
+			should.equal(testMachine.getCurrentState(), 'state1');
 		});
 
 		it('should go to state3 based on state1.transition()', function () {
 			testMachine.transitionToNextState(true);
-			testMachine.getCurrentState().should.equals('state3');
+			should.equal(testMachine.getCurrentState(), 'state3');
 		});
 
 		it('should go to state1 based on state3.transition()', function () {
 			testMachine.transitionToNextState(true);
-			testMachine.getCurrentState().should.equals('state1');
+			should.equal(testMachine.getCurrentState(), 'state1');
 		});
 
 		it('should go to state2 based on state1.transition()', function () {
 			testMachine.transitionToNextState(false);
-			testMachine.getCurrentState().should.equals('state2');
+			should.equal(testMachine.getCurrentState(), 'state2');
 		});
 	});
 });
