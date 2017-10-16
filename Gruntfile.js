@@ -46,7 +46,8 @@ module.exports = function (grunt) {
 				'app/views/**/*.xml',
 				'app/styles/**/*.tss',
 				'app/i18n/**/*.xml',
-				'app/alloy.js'
+				'app/alloy.js',
+				'!app/lib/external/**/*.*'
 			],
 			options: {
 				config: '.jsbeautifyrc'
@@ -62,7 +63,8 @@ module.exports = function (grunt) {
 					'app/controllers/**/*.js',
 					'app/models/*.js',
 					'app/lib/**/*.js',
-					'app/alloy.js'
+					'app/alloy.js',
+					'!app/lib/external/**/*.*'
 				]
 			},
 			options: {
@@ -80,7 +82,8 @@ module.exports = function (grunt) {
 					'app/controllers/**/*.js',
 					'app/models/*.js',
 					'app/lib/**/*.js',
-					'app/alloy.js'
+					'app/alloy.js',
+					'!app/lib/external/**/*.*'
 				]
 			}
 		},
@@ -93,7 +96,8 @@ module.exports = function (grunt) {
 					'app/controllers/**/*.js',
 					'app/models/*.js',
 					'app/lib/**/*.js',
-					'app/alloy.js'
+					'app/alloy.js',
+					'!app/lib/external/**/*.*'
 				]
 			}
 		}
