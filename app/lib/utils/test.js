@@ -55,7 +55,7 @@ var Test = (function () {
 	function run() {
 		doLog && console.debug(LOG_TAG, '- run');
 
-		loadTestsInFolder('test');
+		loadTestsInFolder('tests');
 
 		mocha.run();
 	}
