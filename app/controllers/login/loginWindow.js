@@ -45,10 +45,10 @@ function init() {
  * Updates all the UI components based on this controller's state
  * @return {void}
  */
-function render(_state) {
+function render(_props) {
 	doLog && console.log(LOG_TAG, '- render');
 
-	_.each(_state, function (_value, _key) {
+	_.each(_props, function (_value, _key) {
 		switch (_key) {
 		case 'username':
 		case 'password':
