@@ -1,6 +1,20 @@
 # Titanium-Flux
 PoC App for Flux architecture within Titanium+Alloy Projects.
 
+## Table of Contents.
+
+<!-- MarkdownTOC autolink=true depth=2 bracket=round -->
+
+- [Running the app](#running-the-app)
+- [Core Flux components](#core-flux-components)
+	- [Dispatcher.](#dispatcher)
+	- [Stores.](#stores)
+	- [Actions.](#actions)
+	- [Views.](#views)
+
+<!-- /MarkdownTOC -->
+
+
 ## Running the app
 
 Use the same steps as any other Titanium+Alloy app:
