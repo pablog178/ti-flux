@@ -5,7 +5,7 @@
  */
 
 const LOG_TAG = '\x1b[35m' + '[test/index]' + '\x1b[39;49m ';
-require('external/ti-mocha');
+require('/external/ti-mocha');
 
 var Test = (function () {
 	// +-------------------
@@ -55,7 +55,7 @@ var Test = (function () {
 	function run() {
 		doLog && console.debug(LOG_TAG, '- run');
 
-		loadTestsInFolder('tests');
+		loadTestsInFolder('/tests');
 
 		mocha.run();
 	}

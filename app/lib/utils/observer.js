@@ -42,11 +42,6 @@ function Observer() {
 	var functionHandlers = {};
 
 	/**
-	 * @property {Number} handlersCount=0 Counter of handlers to send as token
-	 */
-	var handlersCount = 0;
-
-	/**
 	 * @method addListener
 	 * Adds a new event listener for the given event
 	 * @param {String} _eventName Name of the event
@@ -56,22 +51,25 @@ function Observer() {
 	function addListener(_eventName, _handler) {
 		doLog && console.debug(LOG_TAG, '- addListener');
 
+		if (!_eventName || !_.isString(_eventName)) {
+			throw Error('_eventName is not a valid String: ' + _eventName);
+		}
+
+		if (!_handler || !_.isFunction(_handler)) {
+			throw Error('_handler is not a valid Function: ' + _eventName);
+		}
+
 		var eventHandlers = functionHandlers[_eventName];
-		var token = null;
 
 		if (!eventHandlers) {
-			eventHandlers = {};
+			eventHandlers = [];
 
 			functionHandlers[_eventName] = eventHandlers;
 		}
 
-		token = '' + handlersCount;
+		eventHandlers.push(_handler);
 
-		eventHandlers[token] = _handler;
-
-		handlersCount += 1;
-
-		return token;
+		return _handler;
 	}
 
 	/**
@@ -81,26 +79,31 @@ function Observer() {
 	 * @param {String} _token Token id of the function to remove
 	 * @return {void}
 	 */
-	function removeListener(_eventName, _token) {
+	function removeListener(_eventName, _handler) {
 		doLog && console.debug(LOG_TAG, '- removeListener');
 
 		var eventHandlers = functionHandlers[_eventName];
-
-		if (!_token) {
-			throw Error('Token not defined for event: ' + _eventName + ' (' + _token + ')');
-		}
+		var handlerIndex = null;
 
 		if (!eventHandlers) {
 			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandlers for event: ' + _eventName);
 			return false;
 		}
 
-		if (!eventHandlers[_token]) {
-			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandler for token: ' + _token);
+		if (!_handler) {
+			doLog && console.log(LOG_TAG, '- removeListener - removing all listeners for event: ' + _eventName);
+			functionHandlers[_eventName] = [];
 			return false;
 		}
 
-		delete eventHandlers[_token];
+		handlerIndex = _.indexOf(eventHandlers, _handler);
+
+		if (handlerIndex < 0) {
+			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandler for index: ' + handlerIndex);
+			return false;
+		}
+
+		eventHandlers.splice(handlerIndex, 1);
 	}
 
 	/**
