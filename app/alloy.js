@@ -36,24 +36,24 @@ var moment = require('alloy/moment');
 	doLog = isSimulator;
 
 	// Enviroment settings based on the appid
-	var isEnvDev = (appId === 'com.propelics.appboilerplate.dev');
-	var isEnvTest = (appId === 'com.propelics.appboilerplate.test');
-	var isEnvProd = (appId === 'com.propelics.appboilerplate');
+	var isEnvDev = (appId === 'com.pablog178.appboilerplate.dev');
+	var isEnvTest = (appId === 'com.pablog178.appboilerplate.test');
+	var isEnvProd = (appId === 'com.pablog178.appboilerplate');
 
 	var appInfo = '';
 	var serviceEndpoint = '';
 	// Note: Add Web Services definitions based on Enviroment
 	if (isEnvDev) {
 		appInfo = 'DEV Version ' + appVersion;
-		serviceEndpoint = 'https://dev.propelics.com:8080/';
+		serviceEndpoint = 'https://dev.pablog178.com:8080/';
 	}
 	if (isEnvTest) {
 		appInfo = 'TEST Version ' + appVersion;
-		serviceEndpoint = 'https://test.propelics.com:8080/';
+		serviceEndpoint = 'https://test.pablog178.com:8080/';
 	}
 	if (isEnvProd) {
 		appInfo = 'Version ' + appVersion;
-		serviceEndpoint = 'https://api.propelics.com';
+		serviceEndpoint = 'https://api.pablog178.com';
 	}
 
 	// Define Alloy.Globals
@@ -99,11 +99,6 @@ var moment = require('alloy/moment');
 			flamingo: '#EB5E36',
 			guardsmanRed: '#D60000'
 		},
-
-		// Add configuration options (Support URLs or email dialogs)
-		serviceDeskWebsite: 'https://propelics.freshdesk.com',
-		serviceDeskEmail: 'support@propelics.com',
-		serviceDeskSubject: appName + ' App Support'
 	};
 
 	if (OS_IOS) {
@@ -130,33 +125,4 @@ var moment = require('alloy/moment');
 			}
 		};
 	}
-
-	// Note: Load Globals Modules (i.e. Maps)
-	// try {
-	// 	Alloy.Globals.Map = require('ti.map');
-	// } catch (e) {
-	// 	console.warn('Map Module not loaded');
-	// 	Alloy.Globals.Map = {};
-	// }
-
-	// Instanciate the analytics module
-	// var analytics = require('utils/analytics');
-	// Enable analytics for everything but development (QA and PROD so far)
-	// if (!isEnvDev){
-	// 	analytics.enable();
-	// }
-
-	// Uncomment once this is a Platform app registered in Appcelerator Dashboard
-	/*
-	try {
-		Alloy.Globals.apm = require('com.appcelerator.apm');
-	} catch (e) {
-		// console.error('com.appcelerator.apm module is not available');
-	}
-	Alloy.Globals.apm && Alloy.Globals.apm.init('<APM_ID>', {
-		notificationTitle : 'Propelics',
-		shouldCollectLogcat : true
-	});
-	*/
-
 })();
