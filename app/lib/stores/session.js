@@ -44,31 +44,30 @@ var Session = (function () {
 		doLog && console.log(LOG_TAG, '- reduce');
 
 		switch (_action.type) {
-		case 'SESSION_LOGOUT':
-			return {
-				status: 'logout',
-				username: null,
-				errorMessage: null
-			};
-		case 'SESSION_LOGIN':
-			return {
-				status: 'login',
-				username: _action.username,
-				errorMessage: null
-			};
-		case 'SESSION_ERROR':
-			return {
-				status: 'logout',
-				errorMessage: _action.errorMessage
-			};
-		case 'SESSION_TRY_LOGIN':
-			return {
-				status: 'loading',
-				errorMessage: null
-			};
-		default:
-			return _state;
-
+			case 'SESSION_LOGOUT':
+				return {
+					status: 'logout',
+					username: null,
+					errorMessage: null
+				};
+			case 'SESSION_LOGIN':
+				return {
+					status: 'login',
+					username: _action.username,
+					errorMessage: null
+				};
+			case 'SESSION_ERROR':
+				return {
+					status: 'logout',
+					errorMessage: _action.errorMessage
+				};
+			case 'SESSION_TRY_LOGIN':
+				return {
+					status: 'loading',
+					errorMessage: null
+				};
+			default:
+				return _state;
 		}
 	}
 

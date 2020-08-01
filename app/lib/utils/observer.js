@@ -86,12 +86,20 @@ function Observer() {
 		var handlerIndex = null;
 
 		if (!eventHandlers) {
-			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandlers for event: ' + _eventName);
+			doLog &&
+				console.debug(
+					LOG_TAG,
+					'- removeListener - no eventHandlers for event: ' + _eventName
+				);
 			return false;
 		}
 
 		if (!_handler) {
-			doLog && console.log(LOG_TAG, '- removeListener - removing all listeners for event: ' + _eventName);
+			doLog &&
+				console.log(
+					LOG_TAG,
+					'- removeListener - removing all listeners for event: ' + _eventName
+				);
 			functionHandlers[_eventName] = [];
 			return false;
 		}
@@ -99,7 +107,11 @@ function Observer() {
 		handlerIndex = _.indexOf(eventHandlers, _handler);
 
 		if (handlerIndex < 0) {
-			doLog && console.debug(LOG_TAG, '- removeListener - no eventHandler for index: ' + handlerIndex);
+			doLog &&
+				console.debug(
+					LOG_TAG,
+					'- removeListener - no eventHandler for index: ' + handlerIndex
+				);
 			return false;
 		}
 

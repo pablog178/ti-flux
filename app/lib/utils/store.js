@@ -63,7 +63,6 @@ var Store = function (_args) {
 		if (!_.isEqual(previousState, state)) {
 			observer.fireEvent(changeEvt, state);
 		}
-
 	}
 
 	// +-------------------

@@ -15,7 +15,7 @@ var Application = (function () {
 	// | Private members.
 	// +-------------------
 	var states = {
-		'start': {
+		start: {
 			onState: function (_options) {
 				doLog && console.debug(LOG_TAG, '- onState - start');
 
@@ -32,7 +32,7 @@ var Application = (function () {
 				return 'login';
 			}
 		},
-		'login': {
+		login: {
 			onState: function (_options) {
 				doLog && console.debug(LOG_TAG, '- onState - login');
 
@@ -47,7 +47,7 @@ var Application = (function () {
 				}
 			}
 		},
-		'stable': {
+		stable: {
 			onState: function (_options) {
 				doLog && console.debug(LOG_TAG, '- onState - stable');
 

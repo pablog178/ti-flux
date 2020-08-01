@@ -22,13 +22,20 @@ var Test = (function () {
 	function loadTestsInFolder(_folderPath) {
 		doLog && console.debug(LOG_TAG, '- loadTestsInFolder');
 
-		var folder = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, _folderPath);
+		var folder = Ti.Filesystem.getFile(
+			Ti.Filesystem.resourcesDirectory,
+			_folderPath
+		);
 		var filesPaths = folder.getDirectoryListing();
 
 		if (filesPaths && filesPaths.length) {
 			_.each(filesPaths, function (_filePath) {
 				var completeFilePath = _folderPath + '/' + _filePath;
-				var file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, _folderPath, _filePath);
+				var file = Ti.Filesystem.getFile(
+					Ti.Filesystem.resourcesDirectory,
+					_folderPath,
+					_filePath
+				);
 
 				if (file.isDirectory()) {
 					loadTestsInFolder(completeFilePath);

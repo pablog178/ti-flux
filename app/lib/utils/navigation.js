@@ -42,7 +42,6 @@ var Navigation = (function () {
 			} else {
 				navWindow.openWindow(_window);
 			}
-
 		}
 	}
 
@@ -71,7 +70,6 @@ var Navigation = (function () {
 			} else {
 				navWindow.closeWindow(_window);
 			}
-
 		}
 	}
 
@@ -102,7 +100,11 @@ var Navigation = (function () {
 		}
 
 		if (controllers[_routeName]) {
-			doLog && console.warn(LOG_TAG, '- Window already opened, open() will skip: ' + _routeName);
+			doLog &&
+				console.warn(
+					LOG_TAG,
+					'- Window already opened, open() will skip: ' + _routeName
+				);
 			return false;
 		}
 
@@ -117,7 +119,9 @@ var Navigation = (function () {
 		modal = route.modal || false;
 
 		if (!controller.window) {
-			throw Error('controller does not define a top-level window: ' + _routeName);
+			throw Error(
+				'controller does not define a top-level window: ' + _routeName
+			);
 		}
 
 		controllers[_routeName] = controller;
@@ -161,12 +165,18 @@ var Navigation = (function () {
 		}
 
 		if (!controller) {
-			doLog && console.debug(LOG_TAG, '- close - controller for route not found: ' + _routeName);
+			doLog &&
+				console.debug(
+					LOG_TAG,
+					'- close - controller for route not found: ' + _routeName
+				);
 			return false;
 		}
 
 		if (!controller.window) {
-			throw Error('controller does not define a top-level window: ' + _routeName);
+			throw Error(
+				'controller does not define a top-level window: ' + _routeName
+			);
 		}
 
 		navWindow = route.navWindow || null;

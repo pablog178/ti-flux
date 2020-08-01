@@ -50,22 +50,25 @@ function render(_props) {
 
 	_.each(_props, function (_value, _key) {
 		switch (_key) {
-		case 'username':
-		case 'password':
-			var state = container.getState();
+			case 'username':
+			case 'password':
+				var state = container.getState();
 
-			if ($[_key].value !== _value) {
-				$[_key].value = _value || '';
-			}
+				if ($[_key].value !== _value) {
+					$[_key].value = _value || '';
+				}
 
-			$.resetClass($.login, getLoginButtonClasses(state.username, state.password));
-			break;
-		case 'status':
-			$.loadingContainer.visible = _value === 'loading';
-			break;
-		case 'errorMessage':
-			_value && alert(_value);
-			break;
+				$.resetClass(
+					$.login,
+					getLoginButtonClasses(state.username, state.password)
+				);
+				break;
+			case 'status':
+				$.loadingContainer.visible = _value === 'loading';
+				break;
+			case 'errorMessage':
+				_value && alert(_value);
+				break;
 		}
 	});
 }

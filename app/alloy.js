@@ -12,7 +12,6 @@ global.doTest = true;
 global.moment = require('alloy/moment');
 
 (function () {
-
 	// App Settings
 	var appId = Ti.App.id;
 	var appName = Ti.App.name;
@@ -28,17 +27,18 @@ global.moment = require('alloy/moment');
 	var isSimulator = false;
 
 	if (OS_IOS) {
-		isSimulator = (deviceModel === 'Simulator');
+		isSimulator = deviceModel === 'Simulator';
 	}
 	if (OS_ANDROID) {
-		isSimulator = (deviceManufacturer === 'Genymotion' || deviceManufacturer === 'unknown');
+		isSimulator =
+			deviceManufacturer === 'Genymotion' || deviceManufacturer === 'unknown';
 	}
 	doLog = isSimulator;
 
 	// Enviroment settings based on the appid
-	var isEnvDev = (appId === 'com.pablog178.appboilerplate.dev');
-	var isEnvTest = (appId === 'com.pablog178.appboilerplate.test');
-	var isEnvProd = (appId === 'com.pablog178.appboilerplate');
+	var isEnvDev = appId === 'com.pablog178.appboilerplate.dev';
+	var isEnvTest = appId === 'com.pablog178.appboilerplate.test';
+	var isEnvProd = appId === 'com.pablog178.appboilerplate';
 
 	var appInfo = '';
 	var serviceEndpoint = '';
@@ -75,8 +75,11 @@ global.moment = require('alloy/moment');
 			height: null,
 			dpi: Ti.Platform.displayCaps.dpi,
 			density: Ti.Platform.displayCaps.density,
-			orientation: Ti.Gesture.orientation == Ti.UI.LANDSCAPE_LEFT || Ti.Gesture.orientation == Ti.UI.LANDSCAPE_RIGHT ?
-				'landscape' : 'portrait'
+			orientation:
+				Ti.Gesture.orientation == Ti.UI.LANDSCAPE_LEFT ||
+				Ti.Gesture.orientation == Ti.UI.LANDSCAPE_RIGHT
+					? 'landscape'
+					: 'portrait'
 		},
 
 		// Keep track of some controllers for navigation.
@@ -98,7 +101,7 @@ global.moment = require('alloy/moment');
 			silverDark: '#BABABA',
 			flamingo: '#EB5E36',
 			guardsmanRed: '#D60000'
-		},
+		}
 	};
 
 	if (OS_IOS) {
@@ -109,7 +112,7 @@ global.moment = require('alloy/moment');
 				bold: 'HelveticaNeue-Bold',
 				boldItalic: 'HelveticaNeue-BoldItalic',
 				medium: 'HelveticaNeue-Medium',
-				condensedBold: 'HelveticaNeue-CondensedBold',
+				condensedBold: 'HelveticaNeue-CondensedBold'
 			}
 		};
 	}
