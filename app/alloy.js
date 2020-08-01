@@ -7,9 +7,9 @@
 
 // These are global variables that we don't want to import on every file
 // Any addition here should be discuss with the architect before!!
-var doLog = false;
-var doTest = true;
-var moment = require('alloy/moment');
+global.doLog = false;
+global.doTest = true;
+global.moment = require('alloy/moment');
 
 (function () {
 
