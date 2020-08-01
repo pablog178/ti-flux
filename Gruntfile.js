@@ -1,5 +1,3 @@
-var child_process = require('child_process');
-
 module.exports = function (grunt) {
 	// Configure the plugins
 	grunt.initConfig({
@@ -36,7 +34,25 @@ module.exports = function (grunt) {
 				'!app/lib/external/**/*.*'
 			],
 			options: {
-				extends: ['node']
+				baseConfig: {
+					extends: ['eslint:recommended'],
+					settings: {
+						sharedData: 'Hello'
+					}
+				},
+				envs: ['node', 'mocha', 'es6', 'browser'],
+				useEslintrc: false,
+				globals: [
+					'$',
+					'_',
+					'Alloy',
+					'doLog',
+					'doTest',
+					'OS_ANDROID',
+					'OS_IOS',
+					'Ti'
+				],
+				rules: {}
 			}
 		}
 	});

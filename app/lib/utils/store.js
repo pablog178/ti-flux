@@ -22,16 +22,6 @@ var Store = function (_args) {
 	var state = args.initialState();
 
 	/**
-	 * @property {Object} dispatcher=args.dispatcher Dispatcher to suscribe this store against
-	 */
-	var dispatcher = args.dispatcher;
-
-	/**
-	 * @property {Function} reducer=args.reducer Reducer function to update the state in each action
-	 */
-	var reducer = args.reducer;
-
-	/**
 	 * @property {Utils.observer} observer Embedded observer object for making this store observable
 	 */
 	var observer = new Observer();
@@ -40,30 +30,6 @@ var Store = function (_args) {
 	 * @property {String} changeEvt='change' Name of the change event
 	 */
 	var changeEvt = 'change';
-
-	/**
-	 * @property {String} dispatchToken Token obtained from registering this store agains the dispatcher
-	 */
-	var dispatchToken = dispatcher.register(handleAction);
-
-	/**
-	 * @method handleAction
-	 * @private
-	 * General handler for all the actions coming from the dispatcher, updating the store if needed
-	 * @param {Object} _payload Payload coming from the action to update this store
-	 * @return {void}
-	 */
-	function handleAction(_payload) {
-		doLog && console.debug(LOG_TAG, '- handleAction');
-
-		var previousState = JSON.parse(JSON.stringify(state));
-
-		state = _.reduce([_payload], reducer, state);
-
-		if (!_.isEqual(previousState, state)) {
-			observer.fireEvent(changeEvt, state);
-		}
-	}
 
 	// +-------------------
 	// | Public members.

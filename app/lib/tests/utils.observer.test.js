@@ -10,15 +10,15 @@ describe('/utils/observer', function () {
 		trigger4: 0
 	};
 
-	function trigger1(_evt) {
+	function trigger1() {
 		triggers.trigger1++;
 	}
 
-	function trigger2(_evt) {
+	function trigger2() {
 		triggers.trigger2++;
 	}
 
-	function trigger3(_evt) {
+	function trigger3() {
 		triggers.trigger3++;
 	}
 

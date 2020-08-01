@@ -7,7 +7,7 @@
 
 // These are global variables that we don't want to import on every file
 // Any addition here should be discuss with the architect before!!
-global.doLog = false;
+global.doLog = true;
 global.doTest = true;
 global.moment = require('alloy/moment');
 
@@ -24,37 +24,7 @@ global.moment = require('alloy/moment');
 	var deviceManufacturer = Ti.Platform.manufacturer;
 
 	// Simulator / Debug settings
-	var isSimulator = false;
-
-	if (OS_IOS) {
-		isSimulator = deviceModel === 'Simulator';
-	}
-	if (OS_ANDROID) {
-		isSimulator =
-			deviceManufacturer === 'Genymotion' || deviceManufacturer === 'unknown';
-	}
-	doLog = isSimulator;
-
-	// Enviroment settings based on the appid
-	var isEnvDev = appId === 'com.pablog178.appboilerplate.dev';
-	var isEnvTest = appId === 'com.pablog178.appboilerplate.test';
-	var isEnvProd = appId === 'com.pablog178.appboilerplate';
-
-	var appInfo = '';
-	var serviceEndpoint = '';
-	// Note: Add Web Services definitions based on Enviroment
-	if (isEnvDev) {
-		appInfo = 'DEV Version ' + appVersion;
-		serviceEndpoint = 'https://dev.pablog178.com:8080/';
-	}
-	if (isEnvTest) {
-		appInfo = 'TEST Version ' + appVersion;
-		serviceEndpoint = 'https://test.pablog178.com:8080/';
-	}
-	if (isEnvProd) {
-		appInfo = 'Version ' + appVersion;
-		serviceEndpoint = 'https://api.pablog178.com';
-	}
+	var isSimulator = true;
 
 	// Define Alloy.Globals
 	Alloy.Globals = {
@@ -68,7 +38,6 @@ global.moment = require('alloy/moment');
 		osName: osName,
 		deviceModel: deviceModel,
 		deviceManufacturer: deviceManufacturer,
-		appInfo: appInfo,
 		isSimulator: isSimulator,
 		device: {
 			width: null,

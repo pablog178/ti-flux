@@ -92,26 +92,27 @@ var Session = (function () {
 	 * @method login
 	 * Attempts a to login with the given credentials
 	 * @param {String} _username Username to loin with
-	 * @param {String} _password Password to login with
 	 * @return {void}
 	 */
-	function login(_username, _password) {
+	function login(_username) {
 		doLog && console.log(LOG_TAG, '- login');
+
+		const loggedIn = true;
 
 		Dispatcher.dispatch({
 			type: 'SESSION_TRY_LOGIN'
 		});
 
 		_.delay(function () {
-			if (true) {
-				Dispatcher.dispatch({
-					type: 'SESSION_ERROR',
-					errorMessage: 'An error has occured, try again'
-				});
-			} else {
+			if (loggedIn) {
 				Dispatcher.dispatch({
 					type: 'SESSION_LOGIN',
 					username: _username
+				});
+			} else {
+				Dispatcher.dispatch({
+					type: 'SESSION_ERROR',
+					errorMessage: 'An error has occured, try again'
 				});
 			}
 		}, 1000);

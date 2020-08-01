@@ -11,12 +11,13 @@ const Session = require('/stores/session');
 const StateMachine = require('/utils/stateMachine');
 
 var Application = (function () {
+	var stateMachine;
 	// +-------------------
 	// | Private members.
 	// +-------------------
 	var states = {
 		start: {
-			onState: function (_options) {
+			onState: function () {
 				doLog && console.debug(LOG_TAG, '- onState - start');
 
 				Session.addListener(handleSessionChange);
@@ -33,7 +34,7 @@ var Application = (function () {
 			}
 		},
 		login: {
-			onState: function (_options) {
+			onState: function () {
 				doLog && console.debug(LOG_TAG, '- onState - login');
 
 				Session.logout();
@@ -48,7 +49,7 @@ var Application = (function () {
 			}
 		},
 		stable: {
-			onState: function (_options) {
+			onState: function () {
 				doLog && console.debug(LOG_TAG, '- onState - stable');
 
 				Navigation.open('mainWindow');
@@ -81,7 +82,7 @@ var Application = (function () {
 	 * @param {Object} _payloads param_description
 	 * @return {void}
 	 */
-	function handleSessionChange(_session) {
+	function handleSessionChange() {
 		doLog && console.debug(LOG_TAG, '- handleSessionChange');
 
 		stateMachine.transitionToNextState();
